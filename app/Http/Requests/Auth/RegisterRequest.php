@@ -16,9 +16,9 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mobile' => ['required', 'string', 'digits:11'],
+            'mobile' => ['required', 'string', 'digits:11', 'unique:users,mobile'],
             'name' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'password', 'max:24', 'min:6']
+            'password' => ['required', 'string', 'max:24', 'min:6']
         ];
     }
 }

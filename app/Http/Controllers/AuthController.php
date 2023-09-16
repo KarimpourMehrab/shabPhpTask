@@ -5,25 +5,29 @@ namespace App\Http\Controllers;
 use App\Exceptions\Auth\InvalidUsernameOrPasswordException;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Models\User;
 use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function __construct(private UserRepository $userRepository)
+    /**
+     * @param UserRepository $userRepository
+     */
+    public function __construct(private readonly UserRepository $userRepository)
     {
         parent::__construct();
     }
 
+    /**
+     * @param RegisterRequest $request
+     * @return JsonResponse
+     */
     public function register(RegisterRequest $request): JsonResponse
     {
-        $this->data = User::query()->create([
-            'name' => $request->input('name'),
-            'password' => $request->input('password'),
-            'mobile' => $request->input('mobile')
+        $this->data = $this->userRepository->create([
+            ...$request->validated(),
+            'password' => Hash::make($request->input('password'))
         ]);
         return $this->response();
     }

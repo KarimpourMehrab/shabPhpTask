@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\traits;
+namespace App\Models\traits\General;
 
 
 use App\Services\Search\Elastic\Elastic;
