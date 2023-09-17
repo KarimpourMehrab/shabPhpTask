@@ -3,7 +3,7 @@
 namespace App\Services\Notification\Sms;
 
 
-use App\Jobs\SendSmsJob;
+use App\Jobs\Notification\SendSmsJob;
 use App\Services\Notification\Exceptions\ParameterNotificationExceptions;
 use App\Services\Notification\NotificationServiceAbstract;
 

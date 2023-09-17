@@ -38,6 +38,7 @@ class OrderController extends Controller
 
     private function makeOrder(User $user, $cartItem): Model|Builder
     {
+        $delivery = request()->input('delivery');
         $order = Order::query()->create([
             'user_id' => $user->id,
             'final_price' => $this->getFinalPrice($user)
@@ -45,7 +46,7 @@ class OrderController extends Controller
         $orderItems = [];
         foreach ($cartItem as $item) {
             $orderItems[] = [
-                'price' => $item->product->price,
+                'price' => $delivery ? $item->product->price : $item->product->price + $item->product->delivery,
                 'order_id' => $order->id,
                 'product_id' => $item->product->id
             ];
@@ -57,9 +58,10 @@ class OrderController extends Controller
 
     private function getFinalPrice(User $user)
     {
+        $delivery = request()->input('delivery');
         $finalPrice = 0;
         foreach ($user->cartItems as $cartItem) {
-            $finalPrice += $cartItem->product->price;
+            $finalPrice += $delivery ? $cartItem->product->price : $cartItem->product->price + $cartItem->product->delivery;
         }
         return $finalPrice;
     }

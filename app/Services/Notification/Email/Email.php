@@ -2,7 +2,7 @@
 
 namespace App\Services\Notification\Email;
 
-use App\Jobs\SendEmailJob;
+use App\Jobs\Notification\SendEmailJob;
 use App\Services\Notification\Exceptions\ParameterNotificationExceptions;
 use App\Services\Notification\NotificationServiceAbstract;
 use Illuminate\Mail\Mailable;

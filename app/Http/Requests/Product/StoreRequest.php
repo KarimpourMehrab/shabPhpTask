@@ -17,7 +17,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'min:5', 'max:255'],
-            'price' => ['required', 'numeric', 'min:0', 'digits_between:1,10'],
+            'price' => ['required', 'numeric', 'min:0', 'digits_between:1,10']
         ];
     }
 }

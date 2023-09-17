@@ -23,13 +23,17 @@ class EventElasticUpdateCommand extends Command
                  */
                 foreach ($products as $product) {
                     $searchService = $product->searchService();
-                    $searchService->index($product->toArray());
+                    if ($searchService->index($product->toArray())) {
+                        $this->info($product->id . " indexed!");
+                    } else {
+                        throw new \Exception();
+                    }
                 }
             });
             $this->info('all products indexed successfully...');
         } catch (\Exception $e) {
             Log::error($e);
-            $this->alert('process failed!');
+            $this->alert('indexing process in the elastic search failed! please read the laravel.log');
         }
     }
 }

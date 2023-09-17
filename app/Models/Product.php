@@ -17,6 +17,9 @@ class Product extends Model implements HasMedia
 {
     use HasFactory, Searchable, InteractsWithMedia, Functions;
 
+    protected $appends = [
+        'delivery'
+    ];
     protected $fillable = [
         'title',
         'price',

@@ -3,8 +3,8 @@
 namespace App\Models\traits\General;
 
 
-use App\Services\Search\Elastic\Elastic;
-use App\Services\Search\SearchService;
+use App\Services\Search\Elastic\Fast;
+use App\Services\Search\DeliveryService;
 
 trait Searchable
 {
@@ -29,8 +29,8 @@ trait Searchable
      */
     public static function searchService(string|null $searchService = null): mixed
     {
-        $searchService = $searchService ?? Elastic::name();
-        $searchService = SearchService::make($searchService);
+        $searchService = $searchService ?? Fast::name();
+        $searchService = DeliveryService::make($searchService);
         $searchService->setIndex(self::$indexName);
         $searchService->setFields(self::$searchAbleFields);
         return $searchService;

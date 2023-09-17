@@ -98,6 +98,18 @@ class Elastic extends SearchServiceAbstract
         }
     }
 
+    public function delete(string|int $id): void
+    {
+        try {
+            $this->client->delete([
+                'index' => $this->index,
+                'id' => $id
+            ]);
+        } catch (\Exception $exception) {
+            Log::error($exception);
+        }
+    }
+
     private function cleanResult($res): array
     {
         $cleanedData = [];
