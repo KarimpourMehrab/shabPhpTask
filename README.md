@@ -7,5 +7,6 @@
 ### running the prodject
 
 - cp .env.example .env
+- cp .env .env.testing
 - set the DATABASE... env variables
 - sh install.sh
